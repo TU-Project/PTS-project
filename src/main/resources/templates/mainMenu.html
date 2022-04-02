@@ -1,5 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 
 <head>
     <title>Welcome!</title>
@@ -11,16 +13,14 @@
 
 </head>
 <body>
-<h1 th:inline="text">Welcome to the main menu!</h1>
-
-<div>
-    <h3>You have the following options</h3><br>
-</div>
-<a th:href = "@{/summarizedData}"> Get summarized data </a><br> <br/>
-<a th:href = "@{/frequencyDistribution}"> Get frequency distribution </a> <br> <br/>
-<a th:href =  "@{/centralTrend}"> Get measures of the central trend </a> <br> <br/>
-<a th:href =  "@{/dispersionMeasures}"> Get dispersion measures </a> <br> <br/>
-<a th:href =  "@{/correlationAnalysis}"> Get correlation analysis </a> <br> <br/>
+<h1 style="font-size: 20px">Welcome to the main menu!</h1>
+<h2 style="font-size: 20px">You have the following options:</h2>
+<br><br/>
+<a th:href = "@{/summarizedData}" class="btn btn-info btn-sm mb-3" style="font-size: 20px"> Get summarized data </a><br> <br/>
+<a th:href = "@{/frequencyDistribution}" class="btn btn-info btn-sm mb-3" style="font-size: 20px"> Get frequency distribution </a> <br> <br/>
+<a th:href =  "@{/centralTrend}" class="btn btn-info btn-sm mb-3" style="font-size: 20px"> Get measures of the central trend </a> <br> <br/>
+<a th:href =  "@{/dispersionMeasures}" class="btn btn-info btn-sm mb-3" style="font-size: 20px"> Get dispersion measures </a> <br> <br/>
+<a th:href =  "@{/correlationAnalysis}" class="btn btn-info btn-sm mb-3" style="font-size: 20px"> Get correlation analysis </a> <br> <br/>
 
 
 </body>
