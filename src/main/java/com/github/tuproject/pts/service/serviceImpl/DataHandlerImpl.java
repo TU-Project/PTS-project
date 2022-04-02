@@ -17,7 +17,6 @@ import java.util.List;
 
 @Service
 public class DataHandlerImpl implements DataHandler {
-    private List<Student> students;
 
     private final static String uploadedFileEventName = "A file has been uploaded.";
     private final static String uploadedFileDescription = "The user with id '%d' has uploaded a file to the submission";

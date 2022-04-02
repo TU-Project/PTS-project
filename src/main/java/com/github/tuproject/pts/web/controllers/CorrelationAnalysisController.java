@@ -2,6 +2,7 @@ package com.github.tuproject.pts.web.controllers;
 
 import com.github.tuproject.pts.data.entities.Student;
 import com.github.tuproject.pts.data.entities.StudentActivities;
+import com.github.tuproject.pts.service.CorrelationAnalysis;
 import com.github.tuproject.pts.service.DataHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,27 +24,21 @@ public class CorrelationAnalysisController extends BaseController{
     private String year2StudentsFilePath = "Course_A_StudentsResults_Year_2.xlsx";
     private String studentActivitiesFilePath = "Logs_Course_A_StudentsActivities.xlsx";
 
+
     @Autowired
-    DataHandler dataHandler;
+    CorrelationAnalysis correlationAnalysis;
 
     @GetMapping
-    public ModelAndView mainPage(Model model) throws  FileNotFoundException {
-        List<Student> studentsYear1 = dataHandler.GetStudents(year1StudentsFilePath);
-        List<Student> studentsYear2 = dataHandler.GetStudents(year2StudentsFilePath);
-        List<Student> studentsBothYears = new ArrayList<>();
-        studentsBothYears.addAll(studentsYear1);
-        studentsBothYears.addAll(studentsYear2);
+    public ModelAndView mainPage(Model model) {
 
-        List <StudentActivities> studentActivities = dataHandler.GetStudentActivities(studentActivitiesFilePath);
+        model.addAttribute("correlationCoefficientYear1", correlationAnalysis.GetCorrelationAnalysis(year1StudentsFilePath,studentActivitiesFilePath));
+        model.addAttribute("studentListYear1" , correlationAnalysis.GetStudentsUsedInAnalysis());
 
-        model.addAttribute("studentListYear1" , dataHandler.SetUploadedFiles(studentsYear1, studentActivities));
-        model.addAttribute("correlationCoefficientYear1", dataHandler.GetPearsonsCorrelation(studentsYear1));
+        model.addAttribute("correlationCoefficientYear2", correlationAnalysis.GetCorrelationAnalysis(year2StudentsFilePath,studentActivitiesFilePath));
+        model.addAttribute("studentListYear2" , correlationAnalysis.GetStudentsUsedInAnalysis());
 
-        model.addAttribute("studentListYear2" , dataHandler.SetUploadedFiles(studentsYear2, studentActivities));
-        model.addAttribute("correlationCoefficientYear2", dataHandler.GetPearsonsCorrelation(studentsYear2));
-
-        model.addAttribute("studentListBothYears" , dataHandler.SetUploadedFiles(studentsBothYears, studentActivities));
-        model.addAttribute("correlationCoefficientBothYears", dataHandler.GetPearsonsCorrelation(studentsBothYears));
+        model.addAttribute("correlationCoefficientBothYears", correlationAnalysis.GetCorrelationAnalysis(year1StudentsFilePath,year2StudentsFilePath,studentActivitiesFilePath));
+        model.addAttribute("studentListBothYears" , correlationAnalysis.GetStudentsUsedInAnalysis());
 
         return super.view("correlationAnalysis");
     }
