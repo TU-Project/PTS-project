@@ -19,7 +19,7 @@ public class CorrelationAnalysisImpl implements CorrelationAnalysis {
     private List<Student> students;
 
     @Override
-    public double GetCorrelationAnalysis(String pathToStudentResultsFile, String pathToStudentActivitiesFile) {
+    public double GetCorrelationCoefficient(String pathToStudentResultsFile, String pathToStudentActivitiesFile) {
         try {
             students = dataHandler.GetStudents(pathToStudentResultsFile);
             students = dataHandler.SetUploadedFiles(students, dataHandler.GetStudentActivities(pathToStudentActivitiesFile));
@@ -32,7 +32,7 @@ public class CorrelationAnalysisImpl implements CorrelationAnalysis {
     }
 
     @Override
-    public double GetCorrelationAnalysis(String pathToStudentResultsFile1, String pathToStudentResultsFile2, String pathToStudentActivitiesFile) {
+    public double GetCorrelationCoefficient(String pathToStudentResultsFile1, String pathToStudentResultsFile2, String pathToStudentActivitiesFile) {
         try {
             students = dataHandler.GetStudents(pathToStudentResultsFile1);
             students.addAll(dataHandler.GetStudents(pathToStudentResultsFile2));

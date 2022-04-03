@@ -13,7 +13,6 @@ public class StudentActivities {
     @ExcelCellName("Description")
     private String description;
 
-
     public String getEventContext() {
         return eventContext;
     }
