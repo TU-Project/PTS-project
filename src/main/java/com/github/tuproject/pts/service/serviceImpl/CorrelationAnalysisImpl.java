@@ -18,6 +18,7 @@ public class CorrelationAnalysisImpl implements CorrelationAnalysis {
 
     private List<Student> students;
 
+    @Override
     public double GetCorrelationAnalysis(String pathToStudentResultsFile, String pathToStudentActivitiesFile) {
         try {
             students = dataHandler.GetStudents(pathToStudentResultsFile);
