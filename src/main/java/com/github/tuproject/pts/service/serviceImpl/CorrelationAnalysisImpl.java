@@ -1,7 +1,6 @@
 package com.github.tuproject.pts.service.serviceImpl;
 
 import com.github.tuproject.pts.data.entities.Student;
-import com.github.tuproject.pts.data.entities.StudentActivities;
 import com.github.tuproject.pts.service.CorrelationAnalysis;
 import com.github.tuproject.pts.service.DataHandler;
 import org.springframework.beans.factory.annotation.Autowired;

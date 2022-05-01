@@ -9,17 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Controller
 @RequestMapping("/correlationAnalysis")
 public class CorrelationAnalysisController extends BaseController{
-
-    private String year1StudentsFilePath = "Course_A_StudentsResults_Year_1.xlsx";
-    private String year2StudentsFilePath = "Course_A_StudentsResults_Year_2.xlsx";
-    private String studentActivitiesFilePath = "Logs_Course_A_StudentsActivities.xlsx";
-
     private static List<Student> cachedStudentListYear1;
     private static List<Student> cachedStudentListYear2;
     private static List<Student> cachedStudentListYearBoth;

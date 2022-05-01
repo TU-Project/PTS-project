@@ -6,11 +6,12 @@ import com.github.tuproject.pts.data.entities.StudentActivities;
 import com.github.tuproject.pts.service.DataHandler;
 import com.poiji.bind.Poiji;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.Range;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
+import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +22,7 @@ public class DataHandlerImpl implements DataHandler {
     private final static String uploadedFileEventName = "A file has been uploaded.";
     private final static String uploadedFileDescription = "The user with id '%d' has uploaded a file to the submission";
 
-    public List<Student> GetStudents(String path) throws  FileNotFoundException {
+    public List<Student> GetStudents(String path) throws NullPointerException {
         ClassLoader classLoader = this.getClass().getClassLoader();
         File file =new File(classLoader.getResource(path).getFile());
 
@@ -29,7 +30,7 @@ public class DataHandlerImpl implements DataHandler {
     }
 
     @Override
-    public List<StudentActivities> GetStudentActivities(String path) throws FileNotFoundException {
+    public List<StudentActivities> GetStudentActivities(String path) throws NullPointerException {
         ClassLoader classLoader = this.getClass().getClassLoader();
         File file =new File(classLoader.getResource(path).getFile());
 
@@ -68,5 +69,38 @@ public class DataHandlerImpl implements DataHandler {
         double[] uploadedFilesArray = ArrayUtils.toPrimitive(uploadedFiles.toArray(new Double[0]));
 
         return pearsonCorrelation.correlation(resultsArray, uploadedFilesArray);
+    }
+
+    @Override
+    public Range<Double> GetRange(List<Student> students) {
+        List<Double> results = new ArrayList<>();
+        for (Student student : students) {
+            results.add(student.getResult());
+        }
+
+        double min = Collections.min(results);
+        double max = Collections.max(results);
+
+        return Range.between(min, max);
+    }
+
+    @Override
+    public double GetVariance(List<Student> students) {
+        SummaryStatistics statistics = new SummaryStatistics();
+        for (Student student : students) {
+            statistics.addValue(student.getResult());
+        }
+
+        return statistics.getVariance();
+    }
+
+    @Override
+    public double GetStandardDeviation(List<Student> students) {
+        SummaryStatistics statistics = new SummaryStatistics();
+        for (Student student: students) {
+            statistics.addValue(student.getResult());
+        }
+
+        return statistics.getStandardDeviation();
     }
 }
