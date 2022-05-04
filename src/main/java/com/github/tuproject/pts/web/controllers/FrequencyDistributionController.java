@@ -24,6 +24,7 @@ public class FrequencyDistributionController extends BaseController {
     private static ArrayList<ResultFrequency> frequencyDistributionY2;
     private static ArrayList<ResultFrequency> frequencyDistributionBoth;
     boolean cached = false;
+
     @Autowired
     FrequencyDistribution frequencyDistribution;
 

@@ -45,14 +45,10 @@ public class DispersionMeasuresImpl implements DispersionMeasures {
 
     private void loadStudents(String pathToStudentResultsFile1, String pathToStudentResultsFile2,
                               String pathToStudentActivitiesFile, boolean isSingleYear) {
-        try {
             students = dataHandler.GetStudents(pathToStudentResultsFile1);
             if (!isSingleYear) {
                 students.addAll(dataHandler.GetStudents(pathToStudentResultsFile2));
             }
             students = dataHandler.SetUploadedFiles(students, dataHandler.GetStudentActivities(pathToStudentActivitiesFile));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 }

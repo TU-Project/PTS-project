@@ -19,8 +19,7 @@ public class FrequencyDistributionImpl implements FrequencyDistribution {
 
     private List<Student> students;
 
-    public ArrayList<ResultFrequency> getFrequencyDistribution(String pathToStudentResultsFile1, String pathToStudentResultsFile2,
-                                                               String pathToStudentActivitiesFile, boolean isSingleYear) {
+    public ArrayList<ResultFrequency> getFrequencyDistribution(String pathToStudentResultsFile1, String pathToStudentResultsFile2,String pathToStudentActivitiesFile, boolean isSingleYear) {
         loadStudents(pathToStudentResultsFile1, pathToStudentResultsFile2, pathToStudentActivitiesFile, isSingleYear);
         return dataHandler.getFrequencyDistribution(students);
     }
@@ -31,14 +30,10 @@ public class FrequencyDistributionImpl implements FrequencyDistribution {
 
     private void loadStudents(String pathToStudentResultsFile1, String pathToStudentResultsFile2,
                               String pathToStudentActivitiesFile, boolean isSingleYear) {
-        try {
             students = dataHandler.GetStudents(pathToStudentResultsFile1);
             if (!isSingleYear) {
                 students.addAll(dataHandler.GetStudents(pathToStudentResultsFile2));
             }
             students = dataHandler.SetUploadedFiles(students, dataHandler.GetStudentActivities(pathToStudentActivitiesFile));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 }

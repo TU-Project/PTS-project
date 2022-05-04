@@ -11,6 +11,9 @@ import org.apache.commons.lang3.Range;
 import org.apache.commons.math3.stat.Frequency;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
+import org.apache.commons.math3.stat.descriptive.rank.Median;
+import org.apache.commons.math3.stat.descriptive.moment.Mean;
+import org.apache.commons.math3.stat.StatUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -23,8 +26,10 @@ public class DataHandlerImpl implements DataHandler {
 
     private final static String uploadedFileEventName = "A file has been uploaded.";
     private final static String uploadedFileDescription = "The user with id '%d' has uploaded a file to the submission";
+    private final static String uploadedExercises = "Assignment: Качване на курсови задачи и проекти";
+    private final static String fileSubmissionsContent = "File submissions";
 
-    public List<Student> GetStudents(String path) throws NullPointerException {
+    public List<Student> GetStudents(String path) {
         ClassLoader classLoader = this.getClass().getClassLoader();
         File file = new File(classLoader.getResource(path).getFile());
 
@@ -32,7 +37,7 @@ public class DataHandlerImpl implements DataHandler {
     }
 
     @Override
-    public List<StudentActivities> GetStudentActivities(String path) throws NullPointerException {
+    public List<StudentActivities> GetStudentActivities(String path) {
         ClassLoader classLoader = this.getClass().getClassLoader();
         File file = new File(classLoader.getResource(path).getFile());
 
@@ -114,5 +119,37 @@ public class DataHandlerImpl implements DataHandler {
         frequencies.valuesIterator().forEachRemaining(x -> list.add(new ResultFrequency((Double) x, frequencies.getCount(x), frequencies.getPct(x))));
 
         return list;
+    }
+
+    public double GetMedian(List<StudentActivities> studentActivities){
+        return new Median().evaluate(getUploadedExerciseActivities(studentActivities));
+    }
+
+    public double GetMean(List<StudentActivities> studentActivities){
+        return new Mean().evaluate(getUploadedExerciseActivities(studentActivities));
+    }
+
+    public double[] GetMode(List<StudentActivities> studentActivities){
+        return StatUtils.mode(getUploadedExerciseActivities(studentActivities));
+    }
+
+
+
+    private double[] getUploadedExerciseActivities (List<StudentActivities> studentActivities) {
+        List<StudentActivities> uploadExerciseActivity = new ArrayList<StudentActivities>();
+
+        for (int i =0 ; i < studentActivities.size(); i ++ ){
+            if (!studentActivities.get(i).getEventContext().equals(uploadedExercises) && studentActivities.get(i).getComponent().contains(fileSubmissionsContent)){
+                uploadExerciseActivity.add(studentActivities.get(i));
+            }
+        }
+
+        double[] studentActivitiesArray = new double[uploadExerciseActivity.size()];
+
+        for (int i =0 ; i < studentActivitiesArray.length; i ++ ){
+            studentActivitiesArray[i] = Double.parseDouble(uploadExerciseActivity.get(i).getEventContext().split(" ")[4]);
+        }
+
+        return studentActivitiesArray;
     }
 }
