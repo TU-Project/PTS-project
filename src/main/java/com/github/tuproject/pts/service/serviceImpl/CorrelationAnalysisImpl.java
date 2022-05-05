@@ -19,27 +19,17 @@ public class CorrelationAnalysisImpl implements CorrelationAnalysis {
 
     @Override
     public double GetCorrelationCoefficient(String pathToStudentResultsFile, String pathToStudentActivitiesFile) {
-        try {
             students = dataHandler.GetStudents(pathToStudentResultsFile);
             students = dataHandler.SetUploadedFiles(students, dataHandler.GetStudentActivities(pathToStudentActivitiesFile));
-        }
-        catch (FileNotFoundException e){
-            return 0.0;
-        }
 
         return dataHandler.GetPearsonsCorrelation(students);
     }
 
     @Override
     public double GetCorrelationCoefficient(String pathToStudentResultsFile1, String pathToStudentResultsFile2, String pathToStudentActivitiesFile) {
-        try {
             students = dataHandler.GetStudents(pathToStudentResultsFile1);
             students.addAll(dataHandler.GetStudents(pathToStudentResultsFile2));
             students = dataHandler.SetUploadedFiles(students, dataHandler.GetStudentActivities(pathToStudentActivitiesFile));
-        }
-        catch (FileNotFoundException e){
-            return 0.0;
-        }
 
         return dataHandler.GetPearsonsCorrelation(students);
     }

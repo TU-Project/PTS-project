@@ -14,5 +14,24 @@
     <a th:href = "@{/}" class="btn btn-info btn-sm mb-3" style="font-size: 20px">Go To Main Menu</a>
 </div>
 
+<h3>
+    Median: [(${median})]
+</h3>
+
+<h3>
+    Mean: [(${mean})]
+</h3>
+
+<h3>
+    Mode:
+<tbody>
+<tr th:each="mode : ${mode}" style="cursor: pointer" >
+        <td th:text="${mode}"></td>
+</tr>
+</tbody>
+</h3>
+
+
+
 </body>
 </html>

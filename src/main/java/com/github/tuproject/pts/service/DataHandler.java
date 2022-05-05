@@ -10,19 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface DataHandler {
-    List<Student> GetStudents(String path) throws FileNotFoundException;
-
-    List<StudentActivities> GetStudentActivities(String path) throws FileNotFoundException;
-
+    List<Student> GetStudents(String path);
+    List<StudentActivities> GetStudentActivities(String path);
     List<Student> SetUploadedFiles(List<Student> students, List<StudentActivities> activities);
-
     double GetPearsonsCorrelation(List<Student> students);
-
     Range<Double> GetRange(List<Student> students);
-
     double GetVariance(List<Student> students);
-
     double GetStandardDeviation(List<Student> students);
-
     ArrayList<ResultFrequency> getFrequencyDistribution(List<Student> students);
+    double GetMedian(List<StudentActivities> studentActivities);
+    double GetMean(List<StudentActivities> studentActivities);
+    double[] GetMode(List<StudentActivities> studentActivities);
 }
