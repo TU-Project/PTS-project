@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -61,6 +62,23 @@ public class DataHandlerImpl implements DataHandler {
         return students;
     }
 
+    public List<Student> getSummarizedResults(List<StudentActivities> studentActivities, List<Student> students) {
+
+        List<Student> studentsList = new ArrayList<>();
+
+        for (Student student : students) {
+            int studentId = student.getId();
+            for(StudentActivities activity : studentActivities){
+                if(activity.getDescription().contains(String.valueOf(studentId))){
+                    student.addStudentActivity(activity);
+                }
+            }
+            studentsList.add(student);
+        }
+        return studentsList;
+    }
+
+
     public double GetPearsonsCorrelation(List<Student> students) {
         PearsonsCorrelation pearsonCorrelation = new PearsonsCorrelation();
 
@@ -77,6 +95,7 @@ public class DataHandlerImpl implements DataHandler {
 
         return pearsonCorrelation.correlation(resultsArray, uploadedFilesArray);
     }
+
 
     @Override
     public Range<Double> GetRange(List<Student> students) {
@@ -111,45 +130,48 @@ public class DataHandlerImpl implements DataHandler {
         return statistics.getStandardDeviation();
     }
 
-    public ArrayList<ResultFrequency> getFrequencyDistribution(List<Student> students) {
+    public ArrayList<ResultFrequency> getFrequencyDistribution(List<StudentActivities> studentActivities) {
 
         Frequency frequencies = new Frequency();
-        students.forEach(student -> frequencies.addValue(student.getResult()));
+        var stActivities = getUploadedExerciseActivities(studentActivities);
+        Arrays.stream(stActivities).forEach(frequencies::addValue);
         var list = new ArrayList<ResultFrequency>();
         frequencies.valuesIterator().forEachRemaining(x -> list.add(new ResultFrequency((Double) x, frequencies.getCount(x), frequencies.getPct(x))));
 
         return list;
     }
 
-    public double GetMedian(List<StudentActivities> studentActivities){
+
+    public double GetMedian(List<StudentActivities> studentActivities) {
         return new Median().evaluate(getUploadedExerciseActivities(studentActivities));
     }
 
-    public double GetMean(List<StudentActivities> studentActivities){
+    public double GetMean(List<StudentActivities> studentActivities) {
         return new Mean().evaluate(getUploadedExerciseActivities(studentActivities));
     }
 
-    public double[] GetMode(List<StudentActivities> studentActivities){
+    public double[] GetMode(List<StudentActivities> studentActivities) {
         return StatUtils.mode(getUploadedExerciseActivities(studentActivities));
     }
 
 
-
-    private double[] getUploadedExerciseActivities (List<StudentActivities> studentActivities) {
+    private double[] getUploadedExerciseActivities(List<StudentActivities> studentActivities) {
         List<StudentActivities> uploadExerciseActivity = new ArrayList<StudentActivities>();
 
-        for (int i =0 ; i < studentActivities.size(); i ++ ){
-            if (!studentActivities.get(i).getEventContext().equals(uploadedExercises) && studentActivities.get(i).getComponent().contains(fileSubmissionsContent)){
+        for (int i = 0; i < studentActivities.size(); i++) {
+            if (!studentActivities.get(i).getEventContext().equals(uploadedExercises) && studentActivities.get(i).getComponent().contains(fileSubmissionsContent)) {
                 uploadExerciseActivity.add(studentActivities.get(i));
             }
         }
 
         double[] studentActivitiesArray = new double[uploadExerciseActivity.size()];
 
-        for (int i =0 ; i < studentActivitiesArray.length; i ++ ){
+        for (int i = 0; i < studentActivitiesArray.length; i++) {
             studentActivitiesArray[i] = Double.parseDouble(uploadExerciseActivity.get(i).getEventContext().split(" ")[4]);
         }
 
         return studentActivitiesArray;
     }
+
 }
+

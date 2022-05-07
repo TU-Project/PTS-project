@@ -17,7 +17,8 @@ public interface DataHandler {
     Range<Double> GetRange(List<Student> students);
     double GetVariance(List<Student> students);
     double GetStandardDeviation(List<Student> students);
-    ArrayList<ResultFrequency> getFrequencyDistribution(List<Student> students);
+    ArrayList<ResultFrequency> getFrequencyDistribution(List<StudentActivities> studentActivities);
+    List<Student> getSummarizedResults(List<StudentActivities> studentActivities, List<Student> students);
     double GetMedian(List<StudentActivities> studentActivities);
     double GetMean(List<StudentActivities> studentActivities);
     double[] GetMode(List<StudentActivities> studentActivities);

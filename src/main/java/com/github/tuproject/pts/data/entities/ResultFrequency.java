@@ -2,21 +2,21 @@ package com.github.tuproject.pts.data.entities;
 
 public class ResultFrequency {
 
-    private double key;
+    private Double key;
     private long absoluteFrequency;
     private double relativeFrequency;
 
-    public ResultFrequency(double key, long absoluteFrequency, double relativeFrequency) {
+    public ResultFrequency(Double  key, long absoluteFrequency, double relativeFrequency) {
         this.key = key;
         this.absoluteFrequency = absoluteFrequency;
         this.relativeFrequency = relativeFrequency;
     }
 
-    public double getKey() {
+    public Double getKey() {
         return key;
     }
 
-    public void setKey(double key) {
+    public void setKey(Double key) {
         this.key = key;
     }
 

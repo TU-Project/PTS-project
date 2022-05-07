@@ -54,22 +54,6 @@
                 Standard Deviation: [(${standardDeviationYear1})]
             </h3>
         </b>
-        <table border="1" class="table table-hover">
-            <thead class="thread-dark">
-            <tr>
-                <th>Student ID</th>
-                <th>Student Result</th>
-                <th>Number of uploaded files</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="student : ${studentListYear1}" style="cursor: pointer">
-                <td th:text="${student.id}"></td>
-                <td th:text="${student.result}"></td>
-                <td th:text="${student.uploadedFiles}"></td>
-            </tr>
-            </tbody>
-        </table>
     </div>
 
     <!--Year 2-->
@@ -89,22 +73,6 @@
                 Standard Deviation: [(${standardDeviationYear2})]
             </h3>
         </b>
-        <table border="1" class="table table-hover">
-            <thead class="thread-dark">
-            <tr>
-                <th>Student ID</th>
-                <th>Student Result</th>
-                <th>Number of uploaded files</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="student : ${studentListYear2}" style="cursor: pointer">
-                <td th:text="${student.id}"></td>
-                <td th:text="${student.result}"></td>
-                <td th:text="${student.uploadedFiles}"></td>
-            </tr>
-            </tbody>
-        </table>
     </div>
 
     <!--Both Years-->
@@ -124,22 +92,6 @@
                 Standard Deviation: [(${standardDeviationYearBoth})]
             </h3>
         </b>
-        <table border="1" class="table table-hover">
-            <thead class="thread-dark">
-            <tr>
-                <th>Student ID</th>
-                <th>Student Result</th>
-                <th>Number of uploaded files</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="student : ${studentListBothYears}" style="cursor: pointer">
-                <td th:text="${student.id}"></td>
-                <td th:text="${student.result}"></td>
-                <td th:text="${student.uploadedFiles}"></td>
-            </tr>
-            </tbody>
-        </table>
     </div>
 </div>
 

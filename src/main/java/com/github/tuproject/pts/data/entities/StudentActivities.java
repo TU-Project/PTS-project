@@ -45,5 +45,4 @@ public class StudentActivities {
         this.description = description;
     }
 
-
 }

@@ -17,12 +17,9 @@ import java.util.List;
 @RequestMapping("/frequencyDistribution")
 public class FrequencyDistributionController extends BaseController {
 
-    private static List<Student> cachedStudentListYear1;
-    private static List<Student> cachedStudentListYear2;
-    private static List<Student> cachedStudentListYearBoth;
-    private static ArrayList<ResultFrequency> frequencyDistributionY1;
-    private static ArrayList<ResultFrequency> frequencyDistributionY2;
-    private static ArrayList<ResultFrequency> frequencyDistributionBoth;
+
+    private static ArrayList<ResultFrequency> frequencyDistributionTable;
+
     boolean cached = false;
 
     @Autowired
@@ -32,12 +29,7 @@ public class FrequencyDistributionController extends BaseController {
     public ModelAndView mainPage(Model model) {
         cacheResults();
 
-        model.addAttribute("frequencyDistributionY1", frequencyDistributionY1);
-        model.addAttribute("frequencyDistributionY2", frequencyDistributionY2);
-        model.addAttribute("frequencyDistributionBoth", frequencyDistributionBoth);
-        model.addAttribute("studentListYear1", cachedStudentListYear1);
-        model.addAttribute("studentListYear2", cachedStudentListYear2);
-        model.addAttribute("studentListBothYears", cachedStudentListYearBoth);
+        model.addAttribute("frequencyDistribution", frequencyDistributionTable);
 
         return super.view("frequencyDistribution");
     }
@@ -46,15 +38,10 @@ public class FrequencyDistributionController extends BaseController {
         if (cached) {
             return;
         }
-        frequencyDistributionY1 = frequencyDistribution.getFrequencyDistribution(year1StudentsFilePath, null, studentActivitiesFilePath, true);
-        cachedStudentListYear1 = frequencyDistribution.GetStudentsUsedInAnalysis();
-
-        frequencyDistributionY2 = frequencyDistribution.getFrequencyDistribution(year2StudentsFilePath, null, studentActivitiesFilePath, true);
-        cachedStudentListYear2 = frequencyDistribution.GetStudentsUsedInAnalysis();
-
-        frequencyDistributionBoth = frequencyDistribution.getFrequencyDistribution(year1StudentsFilePath, year2StudentsFilePath, studentActivitiesFilePath, false);
-        cachedStudentListYearBoth = frequencyDistribution.GetStudentsUsedInAnalysis();
+        frequencyDistributionTable = frequencyDistribution.getFrequencyDistribution(studentActivitiesFilePath);
 
         cached = true;
+
+        return;
     }
 }
