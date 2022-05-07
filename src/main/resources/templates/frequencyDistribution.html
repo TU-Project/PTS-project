@@ -13,10 +13,9 @@
 
         /* Create three equal columns that floats next to each other */
         .column {
-            float: left;
-            width: 33.33%;
+            width: 400px;
             padding: 40px;
-            padding-left: 60px;
+            padding-left: 825px;
             padding-right: 40px;
         }
 
@@ -37,130 +36,21 @@
 
 <div class="row">
 
-    <!--Year 1 -->
+    <!--Table -->
     <div align="center" class="column">
-        <div>
-            <section class="post-content"><h2>
-                Students from year 1
-            </h2>
-            </section>
-
-        </div>
         <table border="1" class="table table-hover">
             <thead class="thread-dark">
             <tr>
-                <th>Result</th>
+                <th>Assignment</th>
                 <th>Absolute</th>
                 <th>Relative</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="x : ${frequencyDistributionY1}" style="cursor: pointer">
-                <td th:text="${x.key}"></td>
+            <tr th:each="x : ${frequencyDistribution}" style="cursor: pointer">
+                <td th:text="${#numbers.formatDecimal(x.key, 1, 0)}"></td>
                 <td th:text="${x.absoluteFrequency}"></td>
                 <td th:text="${#numbers.formatDecimal(x.relativeFrequency, 1, 2)}"></td>
-            </tr>
-            </tbody>
-        </table>
-        <table border="1" class="table table-hover">
-            <thead class="thread-dark">
-            <tr>
-                <th>Student ID</th>
-                <th>Student Result</th>
-                <th>Number of uploaded files</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="student : ${studentListYear1}" style="cursor: pointer">
-                <td th:text="${student.id}"></td>
-                <td th:text="${student.result}"></td>
-                <td th:text="${student.uploadedFiles}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!--Year 2-->
-    <div align="center" class="column">
-        <div>
-            <section class="post-content"><h2>
-                Students from year 2
-            </h2></section>
-
-        </div>
-        <table border="1" class="table table-hover">
-            <thead class="thread-dark">
-            <tr>
-                <th>Result</th>
-                <th>Absolute</th>
-                <th>Relative</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="x : ${frequencyDistributionY2}" style="cursor: pointer">
-                <td th:text="${x.key}"></td>
-                <td th:text="${x.absoluteFrequency}"></td>
-                <td th:text="${#numbers.formatDecimal(x.relativeFrequency, 1, 2)}"></td>
-            </tr>
-            </tbody>
-        </table>
-        <table border="1" class="table table-hover">
-            <thead class="thread-dark">
-            <tr>
-                <th>Student ID</th>
-                <th>Student Result</th>
-                <th>Number of uploaded files</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="student : ${studentListYear2}" style="cursor: pointer">
-                <td th:text="${student.id}"></td>
-                <td th:text="${student.result}"></td>
-                <td th:text="${student.uploadedFiles}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!--Both Years-->
-    <div align="center" class="column">
-        <div>
-            <section class="post-content">
-                <h2>
-                    Students from both years
-                </h2>
-            </section>
-
-        </div>
-        <table border="1" class="table table-hover">
-            <thead class="thread-dark">
-            <tr>
-                <th>Result</th>
-                <th>Absolute</th>
-                <th>Relative</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="x : ${frequencyDistributionBoth}" style="cursor: pointer">
-                <td th:text="${x.key}"></td>
-                <td th:text="${x.absoluteFrequency}"></td>
-                <td th:text="${#numbers.formatDecimal(x.relativeFrequency, 1, 2)}"></td>
-            </tr>
-            </tbody>
-        </table>
-        <table border="1" class="table table-hover">
-            <thead class="thread-dark">
-            <tr>
-                <th>Student ID</th>
-                <th>Student Result</th>
-                <th>Number of uploaded files</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="student : ${studentListBothYears}" style="cursor: pointer">
-                <td th:text="${student.id}"></td>
-                <td th:text="${student.result}"></td>
-                <td th:text="${student.uploadedFiles}"></td>
             </tr>
             </tbody>
         </table>

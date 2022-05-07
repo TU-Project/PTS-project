@@ -6,12 +6,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Summarized Data</title>
+    <style>
+        /* Create three equal columns that floats next to each other */
+        .column {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+    </style>
 </head>
 <body>
 
 <div align="center" class="container my-2">
     <h1>Summarized Data</h1>
     <a th:href = "@{/}" class="btn btn-info btn-sm mb-3" style="font-size: 20px">Go To Main Menu</a>
+</div>
+
+<div class="row">
+
+    <!--Table -->
+    <div align="center" class="column">
+        <table border="1" class="table table-hover">
+            <thead class="thread-dark">
+            <tr>
+                <th>Student ID</th>
+                <th>Result</th>
+                <th>Event Context</th>
+                <th>Component</th>
+                <th>Event Name</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="student : ${studentListFromYear1}">
+                <tr th:each="activity : ${student.studentActivities}">
+                    <td th:text="${student.id}"></td>
+                    <td th:text="${student.result}"></td>
+                    <td th:text="${activity.eventContext}"></td>
+                    <td th:text="${activity.component}"></td>
+                    <td th:text="${activity.eventName}"></td>
+                    <td th:text="${activity.description}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 </body>
